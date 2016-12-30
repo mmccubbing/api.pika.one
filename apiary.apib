@@ -1,0 +1,109 @@
+FORMAT: 1A
+HOST: http://api.pika.one/
+
+# PIKA.one API
+
+The PIKA.one API is a simple way to gather and analyze product and ingredient information to let your users know if a purchase is right for them.
+
+## Ingredient Search [/search/{term}]
+
+### Search for an Ingredient [GET]
+
++ Parameters
+    + term: `L-Cysteine` (string, required) - search term.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "1",
+                "names": {
+                    "0": "L-Cysteine"
+                },
+                "description":"Amino acid that oxidizes to form cystine. May be derived from hair, feather, or hooves or may be synthetic."
+            }    
+        ]
+
+## Ingredient Information [/ingredients/{ingredient_id}]
+
+### Get Ingredient Information [GET]
+
+Retrieve an ingredient's information
+
++ Parameters
+    + ingredient_id: `102` (number, required) - Id of an ingredient.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "102",
+                "names": [
+                    "L-Cysteine"
+                ],
+                "description":"Amino acid that oxidizes to form cystine. May be derived from hair, feather, or hooves or may be synthetic.",
+                "origin": "synthetic",
+                "diet": {
+                    "vegan": "maybe",
+                    "vegetarian": "is"
+                },
+                "allergens": {
+                    "shelfish": "false"
+                },
+                "links": [
+                    "https://www.vrg.org/blog/2011/03/09/l-cysteine-in-bread-products-still-mostly-sourced-from-human-hair-duck-feathers-hog-hair/"
+                ]
+            }    
+        ]
+
+### Submit an ingredient [POST]
+
+Submit an ingredient for consideration to the database. Returns a temporary id profile. Monitor the ingredient ID to see when it has been approved and added to the ingredient database ("submitted" entry will be removed). May be removed without retaining id. If the ID stops returning a result, search for the ingredient again as it may have been combined with another entry for deduplication.
+
++ Request (application/json)
+
+        {
+            "names": [
+                "L-Cysteine"
+            ],
+            "description":"Amino acid that oxidizes to form cystine. May be derived from hair, feather, or hooves or may be synthetic.",
+            "origin": "synthetic",
+            "diet": {
+                "vegan": "maybe",
+                "vegetarian": "is"
+            },
+            "allergens": {
+                "shelfish": "false"
+            },
+            "links": [
+                "https://www.vrg.org/blog/2011/03/09/l-cysteine-in-bread-products-still-mostly-sourced-from-human-hair-duck-feathers-hog-hair/"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /ingredients/102
+
+    + Body
+
+            {
+                "id": "102",
+                "submitted": "2016/12/30 12:07:45"
+                "names": [
+                    "L-Cysteine"
+                ],
+                "description":"Amino acid that oxidizes to form cystine. May be derived from hair, feather, or hooves or may be synthetic.",
+                "origin": "synthetic",
+                "diet": {
+                    "vegan": "maybe",
+                    "vegetarian": "is"
+                },
+                "allergens": {
+                    "shelfish": "false"
+                },
+                "links": [
+                    "https://www.vrg.org/blog/2011/03/09/l-cysteine-in-bread-products-still-mostly-sourced-from-human-hair-duck-feathers-hog-hair/"
+                ]
+            }
