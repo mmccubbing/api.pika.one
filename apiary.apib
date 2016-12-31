@@ -107,3 +107,35 @@ Submit an ingredient for consideration to the database. Returns a temporary id p
                     "https://www.vrg.org/blog/2011/03/09/l-cysteine-in-bread-products-still-mostly-sourced-from-human-hair-duck-feathers-hog-hair/"
                 ]
             }
+
+## Analyze Ingredient List [/analyze{?UPC,ingredients,diet}]
+
+### Analyze Ingredient List [GET]
+
+Submit an ingredient list to analyze it for ingredient restrictions
+
++ Parameters
+
+    + UPC: `001234567890` (number, optional) - UPC code of an ingredient.
+
+    + ingredients: `flour,sugar,water` (string, required) - List of ingredients to analyze.
+
+        Submit as either a plaintext string or an URI encoded, JSON string representationo of an array
+
+    + diet: `vegan` (number, required) - Dietary restictrion to analyze against
+    
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "ingredients": {
+                    "flour": "is",
+                    "sugar": "is",
+                    "water": "is"
+                }
+                "diet": {
+                    "vegan": "is"
+                }
+            }
