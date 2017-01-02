@@ -116,14 +116,16 @@ Submit an ingredient list to analyze it for ingredient restrictions
 
 + Parameters
 
-    + UPC: `001234567890` (number, optional) - UPC code of an ingredient.
+    + UPC: `001234567890` (number, optional) - UPC code of a product.
 
-    + ingredients: `flour,sugar,water` (string, required) - List of ingredients to analyze.
+    + ingredients: `%5B%22flour%22%2C%22sugar%22%2C%22water%22%5D` (string, required) - List of ingredients to analyze.
 
-        Submit as either a plaintext string or an URI encoded, JSON string representationo of an array
+        Submit as either a URI encoded string or an URI encoded, JSON array. 
+        
+        Passing a string is handy when you haven't processed an ingredient list into individual ingredient names yet. When possible, however, please use a JSON array for greater accuracy.
 
-    + diet: `vegan` (number, required) - Dietary restictrion to analyze against
-    
+    + diet: `vegan` (string, required) - Dietary restictrion to analyze against.
+
 
 + Response 201 (application/json)
 
